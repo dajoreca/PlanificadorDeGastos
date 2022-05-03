@@ -19,7 +19,7 @@ import NuevoPresupuesto from './src/components/NuevoPresupuesto';
 import ControlPresupuesto from './src/components/ControlPresupuesto';
 import FormularioGasto from './src/components/FormularioGasto'
 import { generarId } from './src/Helpers'
-
+import ListadoGastos from './src/components/ListadoGastos';
 
 const App = () => {
 
@@ -80,7 +80,14 @@ const App = () => {
           )}
           
       </View>
-      
+
+      {isValidPresupuesto && (
+        <ListadoGastos 
+          gastos={gastos}
+        />
+        
+      )}
+
           {modal && (
             <Modal
               animationType='slide'
