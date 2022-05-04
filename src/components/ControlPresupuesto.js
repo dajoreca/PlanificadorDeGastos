@@ -14,7 +14,7 @@ const ControlPresupuesto = ({presupuesto, gastos}) => {
 
         setGastado(totalGastado)
         setDisponible(totalDisponible)
-    }, [])
+    }, [gastos])
 
   return (
     <View style={styles.contenedor}>

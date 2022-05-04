@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   fecha:{
     fontWeight: '700',
-    color:'DB2777'
+    color:'#DB2777'
 
   }
 
