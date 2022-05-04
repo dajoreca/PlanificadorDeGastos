@@ -50,10 +50,8 @@ const App = () => {
 
       //Añadir el nuevo gasto al state
       gasto.id = generarId()
-
-      console.log(gastos)
-      console.log("Nuevo Gasto", gasto)
-
+      gasto.fecha = Date.now()
+      
       setGastos([...gastos, gasto])
       setModal(!modal)
   }
@@ -61,34 +59,37 @@ const App = () => {
 
   return (
     <View style={styles.contenedor}>
-      <View style={styles.header}>
-          <Header />
+      <ScrollView>
+        <View style={styles.header}>
+            <Header />
 
-          {isValidPresupuesto ? (
-            <ControlPresupuesto
-              presupuesto={presupuesto} 
-              gastos={gastos}
-            /> 
-          ) : (
-          
-            <NuevoPresupuesto 
-              presupuesto={presupuesto}
-              setPresupuesto={setPresupuesto}
-              handleNuevoPresupuesto={handleNuevoPresupuesto}
+            {isValidPresupuesto ? (
+              <ControlPresupuesto
+                presupuesto={presupuesto} 
+                gastos={gastos}
+              /> 
+            ) : (
+            
+              <NuevoPresupuesto 
+                presupuesto={presupuesto}
+                setPresupuesto={setPresupuesto}
+                handleNuevoPresupuesto={handleNuevoPresupuesto}
+            />
+            
+            )}
+            
+        </View>
+
+        {isValidPresupuesto && (
+          <ListadoGastos 
+            gastos={gastos}
           />
           
-          )}
-          
-      </View>
+        )}
 
-      {isValidPresupuesto && (
-        <ListadoGastos 
-          gastos={gastos}
-        />
-        
-      )}
+      </ScrollView>
 
-          {modal && (
+      {modal && (
             <Modal
               animationType='slide'
               visible={modal}
@@ -128,14 +129,15 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor:'#3B82F6',
+    minHeight: 400
 
   },
   imagen:{
     width: 60,
     height: 60,
     position: 'absolute',
-    top: 55,
-    right: 10
+    bottom: 40,
+    right: 30
 
   }
 
