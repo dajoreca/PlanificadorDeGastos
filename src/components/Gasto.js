@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, Pressable} from 'react-native'
 import globalStyles from '../Styles'
-import { formatearCantidad} from '../Helpers'
+import { formatearCantidad, formatearFecha} from '../Helpers'
 
 
 const diccionarioIconos = {
@@ -15,7 +15,7 @@ const diccionarioIconos = {
 }
 
 const Gasto = ({gasto}) => {
-  const { nombre, categoria, cantidad, id } = gasto
+  const { nombre, categoria, cantidad, fecha } = gasto
   return (
     <View style={styles.contenedor}>
         
@@ -28,6 +28,7 @@ const Gasto = ({gasto}) => {
               <View style={styles.contenedorTexto}>
                   <Text style={styles.categoria}>{categoria}</Text>
                   <Text style={styles.nombre}>{nombre}</Text>
+                  <Text style={styles.fecha}>{formatearFecha(fecha)}</Text>
               </View>
             </View>
               <Text style={styles.cantidad}>{formatearCantidad(cantidad)}</Text>
@@ -83,6 +84,11 @@ const styles = StyleSheet.create({
   cantidad:{
     fontSize: 20,
     fontWeight: '700'
+
+  },
+  fecha:{
+    fontWeight: '700',
+    color:'DB2777'
 
   }
 
