@@ -28,6 +28,7 @@ const App = () => {
   const [gastos, setGastos] = useState([])
   const [modal, setModal] = useState(false)
   const [gasto, setGasto] = useState({})
+
   
   const handleNuevoPresupuesto = (presupuesto) => {
     if (Number(presupuesto) > 0){
@@ -50,7 +51,7 @@ const App = () => {
       }
 
       if(gasto.id) {
-        const gastosActualizados = gastos.map(gastoState => gastoState.Id 
+        const gastosActualizados = gastos.map(gastoState => gastoState.id 
           === gasto.id ? gasto : gastoState)
           setGastos(gastosActualizados)
       } else {
@@ -62,6 +63,27 @@ const App = () => {
       setModal(!modal)
   }
 
+  const eliminarGasto = id => {
+
+    //Alert.alert(
+      //'¿Desea eliminar este gasto?',
+      //'Un gasto eliminado no se puede recuperar',
+      //[
+       // { text: 'No', style:'cancel'},
+        //{ text: 'Si, Eliminar', onPress: () => {
+          console.log('gasto principio', gasto)
+          const gastosActualizados = gastos.filter( gastoState => 
+          gastoState.id !== id )
+
+          setGastos(gastosActualizados)
+
+          setModal(!modal)
+          setGasto({})
+
+        //}}
+      //]
+    //)
+  }
 
   return (
     <View style={styles.contenedor}>
@@ -111,6 +133,7 @@ const App = () => {
                 handleGasto={handleGasto}
                 gasto={gasto}
                 setGasto={setGasto}
+                eliminarGasto={eliminarGasto}
               />
 
             </Modal>
@@ -118,9 +141,10 @@ const App = () => {
 
       {isValidPresupuesto && (
         <Pressable
+          style={styles.pressable}
           onPress={() => setModal(!modal)}
-        
         >
+          
           <Image 
             style={styles.imagen}
             source={require('./src/img/nuevo-gasto.png')}
@@ -129,8 +153,11 @@ const App = () => {
 
       )}
     </View>     
+    
   );
 };
+
+
 
 const styles = StyleSheet.create({
   contenedor:{
@@ -142,12 +169,18 @@ const styles = StyleSheet.create({
     minHeight: 400
 
   },
-  imagen:{
+  pressable:{
     width: 60,
     height: 60,
     position: 'absolute',
     bottom: 40,
     right: 30
+
+  },
+
+  imagen:{
+    width: 60,
+    height: 60,
 
   }
 

@@ -7,14 +7,16 @@ const FormularioGasto = ({
     setModal, 
     handleGasto,
     setGasto, 
-    gasto 
+    gasto,
+    eliminarGasto 
+
 }) => {
 
     const[ nombre,setNombre] = useState('')
     const[ cantidad,setCantidad] = useState('')
     const[ categoria,setCategoria] = useState('')
     const[ id, setId] = useState('')
-    const[fecha, setFecha] = useState('')
+    const[ fecha, setFecha] = useState('')
 
 
     useEffect(() => {
@@ -29,17 +31,28 @@ const FormularioGasto = ({
 
   return (
     <SafeAreaView style={styles.contenedor}>
-        <View>
+        <View style={styles.contenedorBotones}>
             <Pressable 
                 onLongPress={() => {
                     setModal(false)
                     setGasto({})
                 }}
-                style={styles.btnCancelar}
+                style={[styles.btn, styles.btnCancelar]}
             >
 
-                <Text style={styles.btnCancelarTexto}>Cancelar</Text>
+                <Text style={styles.btnTexto}>Cancelar</Text>
             </Pressable>
+
+            <Pressable 
+               
+                style={[styles.btn, styles.btnEliminar]}
+                onLongPress={() => eliminarGasto(id)}
+            >
+
+                <Text style={styles.btnTexto}>Eliminar</Text>
+            </Pressable>
+
+
         </View>
 
         <View style={styles.formulario}>
@@ -93,6 +106,7 @@ const FormularioGasto = ({
 
             </View>
 
+            
             <Pressable 
                 style={styles.submitBtn}
                 onPress={() =>handleGasto({nombre, cantidad, categoria, id, fecha})}
@@ -103,6 +117,7 @@ const FormularioGasto = ({
 
             </Pressable>
 
+
         </View>
     </SafeAreaView>
   )
@@ -112,16 +127,28 @@ const styles =StyleSheet.create ({
     contenedor: {
         backgroundColor: '#1E40AF',
         flex:1
+    },
+    contenedorBotones:{
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+
+    }, 
+    btn:{
+        padding: 10,
+        marginTop: 30,
+        marginHorizontal: 10,
+        flex: 1
 
     },
     btnCancelar:{
         backgroundColor: '#DB2777',
-        padding: 10,
-        marginTop: 30,
-        marginHorizontal: 10
 
     },
-    btnCancelarTexto:{
+    btnEliminar:{ 
+        backgroundColor: 'red'
+
+    },
+    btnTexto:{
         textAlign:'center',
         textTransform: 'uppercase',
         fontWeight: 'bold',
