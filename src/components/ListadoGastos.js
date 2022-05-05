@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import Gasto from './Gasto'
 
-const ListadoGastos = ({gastos}) => {
+const ListadoGastos = ({gastos, setModal,setGasto}) => {
   return (
     <View style={styles.contenedor}>
         <Text style={styles.titulo}>Gastos</Text>
@@ -13,7 +13,8 @@ const ListadoGastos = ({gastos}) => {
                 <Gasto 
                     key={gasto.id}
                     gasto={gasto}
-                    
+                    setModal={setModal}
+                    setGasto={setGasto}
                 />
             )
             )}

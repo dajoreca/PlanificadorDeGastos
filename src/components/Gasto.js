@@ -14,27 +14,37 @@ const diccionarioIconos = {
     suscripciones: require('../img/icono_suscripciones.png'),
 }
 
-const Gasto = ({gasto}) => {
+const Gasto = ({gasto, setModal, setGasto}) => {
   const { nombre, categoria, cantidad, fecha } = gasto
-  return (
-    <View style={styles.contenedor}>
-        
-        <View style={styles.contenido}>
-            <View style={styles.contenedorImagen}>
-              <Image 
-                   style={styles.imagen}
-                  source={diccionarioIconos[categoria]}
-              />
-              <View style={styles.contenedorTexto}>
-                  <Text style={styles.categoria}>{categoria}</Text>
-                  <Text style={styles.nombre}>{nombre}</Text>
-                  <Text style={styles.fecha}>{formatearFecha(fecha)}</Text>
-              </View>
-            </View>
-              <Text style={styles.cantidad}>{formatearCantidad(cantidad)}</Text>
-        </View>
 
-    </View>
+  const handleAcciones = () => {
+      setModal(true)
+      setGasto(gasto)
+  }
+  
+  return (
+    <Pressable
+      onLongPress={handleAcciones}
+    >
+      <View style={styles.contenedor}>
+          
+          <View style={styles.contenido}>
+              <View style={styles.contenedorImagen}>
+                <Image 
+                    style={styles.imagen}
+                    source={diccionarioIconos[categoria]}
+                />
+                <View style={styles.contenedorTexto}>
+                    <Text style={styles.categoria}>{categoria}</Text>
+                    <Text style={styles.nombre}>{nombre}</Text>
+                    <Text style={styles.fecha}>{formatearFecha(fecha)}</Text>
+                </View>
+              </View>
+                <Text style={styles.cantidad}>{formatearCantidad(cantidad)}</Text>
+          </View>
+
+      </View>
+    </Pressable>
   )
 }
 
