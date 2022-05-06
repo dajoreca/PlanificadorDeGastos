@@ -29,6 +29,8 @@ const App = () => {
   const [gastos, setGastos] = useState([])
   const [modal, setModal] = useState(false)
   const [gasto, setGasto] = useState({})
+  const [filtro, setFiltro] = useState('')
+  const [gastosFiltrados, setGastosFiltrados] = useState([])
 
   
   const handleNuevoPresupuesto = (presupuesto) => {
@@ -111,12 +113,19 @@ const App = () => {
 
           {isValidPresupuesto && (
             <>
-            <Filtro />
-            <ListadoGastos 
-              gastos={gastos}
-              setModal={setModal}
-              setGasto={setGasto}
-            />
+              <Filtro 
+                filtro={filtro}
+                setFiltro={setFiltro}
+                gastos={gastos}
+                setGastosFiltrados={setGastosFiltrados}
+              />
+              <ListadoGastos 
+                gastos={gastos}
+                setModal={setModal}
+                setGasto={setGasto}
+                gastosFiltrados={gastosFiltrados}
+                filtro={filtro}
+              />
             </>
           )}
 
