@@ -43,15 +43,17 @@ const FormularioGasto = ({
                 <Text style={styles.btnTexto}>Cancelar</Text>
             </Pressable>
 
-            <Pressable 
-               
-                style={[styles.btn, styles.btnEliminar]}
-                onLongPress={() => eliminarGasto(id)}
-            >
 
-                <Text style={styles.btnTexto}>Eliminar</Text>
-            </Pressable>
+            { !!id && (
+                <Pressable        
+                    style={[styles.btn, styles.btnEliminar]}
+                    onLongPress={() => eliminarGasto(id)}
+                >
 
+                    <Text style={styles.btnTexto}>Eliminar</Text>
+                </Pressable>
+            ) }
+          
 
         </View>
 
@@ -116,8 +118,7 @@ const FormularioGasto = ({
                 </Text>
 
             </Pressable>
-
-
+            
         </View>
     </SafeAreaView>
   )

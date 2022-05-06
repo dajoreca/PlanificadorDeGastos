@@ -20,6 +20,7 @@ import ControlPresupuesto from './src/components/ControlPresupuesto';
 import FormularioGasto from './src/components/FormularioGasto'
 import { generarId } from './src/Helpers'
 import ListadoGastos from './src/components/ListadoGastos';
+import Filtro from './src/components/Filtro';
 
 const App = () => {
 
@@ -86,74 +87,76 @@ const App = () => {
   }
 
   return (
-    <View style={styles.contenedor}>
-      <ScrollView>
-        <View style={styles.header}>
-            <Header />
+      <View style={styles.contenedor}>
+        <ScrollView>
+          <View style={styles.header}>
+              <Header />
 
-            {isValidPresupuesto ? (
-              <ControlPresupuesto
-                presupuesto={presupuesto} 
-                gastos={gastos}
-              /> 
-            ) : (
-            
-              <NuevoPresupuesto 
-                presupuesto={presupuesto}
-                setPresupuesto={setPresupuesto}
-                handleNuevoPresupuesto={handleNuevoPresupuesto}
-            />
-            
-            )}
-            
-        </View>
-
-        {isValidPresupuesto && (
-          <ListadoGastos 
-            gastos={gastos}
-            setModal={setModal}
-            setGasto={setGasto}
-          />
-          
-        )}
-
-      </ScrollView>
-
-      {modal && (
-            <Modal
-              animationType='slide'
-              visible={modal}
-              onRequestClose={() =>{
-                setModal(!modal)
-              }}
-
-            >
-              <FormularioGasto 
-                setModal={setModal}
-                handleGasto={handleGasto}
-                gasto={gasto}
-                setGasto={setGasto}
-                eliminarGasto={eliminarGasto}
+              {isValidPresupuesto ? (
+                <ControlPresupuesto
+                  presupuesto={presupuesto} 
+                  gastos={gastos}
+                /> 
+              ) : (
+              
+                <NuevoPresupuesto 
+                  presupuesto={presupuesto}
+                  setPresupuesto={setPresupuesto}
+                  handleNuevoPresupuesto={handleNuevoPresupuesto}
               />
+              
+              )}
+              
+          </View>
 
-            </Modal>
+          {isValidPresupuesto && (
+            <>
+            <Filtro />
+            <ListadoGastos 
+              gastos={gastos}
+              setModal={setModal}
+              setGasto={setGasto}
+            />
+            </>
           )}
 
-      {isValidPresupuesto && (
-        <Pressable
-          style={styles.pressable}
-          onPress={() => setModal(!modal)}
-        >
-          
-          <Image 
-            style={styles.imagen}
-            source={require('./src/img/nuevo-gasto.png')}
-          />
-        </Pressable>
+        </ScrollView>
 
-      )}
-    </View>     
-    
+        {modal && (
+              <Modal
+                animationType='slide'
+                visible={modal}
+                onRequestClose={() =>{
+                  setModal(!modal)
+                }}
+
+              >
+                <FormularioGasto 
+                  setModal={setModal}
+                  handleGasto={handleGasto}
+                  gasto={gasto}
+                  setGasto={setGasto}
+                  eliminarGasto={eliminarGasto}
+                />
+
+              </Modal>
+            )}
+
+        {isValidPresupuesto && (
+          <Pressable
+            style={styles.pressable}
+            onPress={() => setModal(!modal)}
+          >
+            
+            <Image 
+              style={styles.imagen}
+              source={require('./src/img/nuevo-gasto.png')}
+            />
+          </Pressable>
+
+        )}
+        
+      </View>     
   );
 };
 
