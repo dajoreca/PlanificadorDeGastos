@@ -11,6 +11,8 @@ import {
   Image,
   Modal
 
+
+
 } from 'react-native';
 //import deepDiffer from 'react-native/Libraries/Utilities/differ/deepDiffer';
 
@@ -21,6 +23,7 @@ import FormularioGasto from './src/components/FormularioGasto'
 import { generarId } from './src/Helpers'
 import ListadoGastos from './src/components/ListadoGastos';
 import Filtro from './src/components/Filtro';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const App = () => {
 
@@ -32,7 +35,84 @@ const App = () => {
   const [filtro, setFiltro] = useState('')
   const [gastosFiltrados, setGastosFiltrados] = useState([])
 
+
+  //ejemplo de como almacenar datos con async
+
+  //useEffect(() => {
+   // const AlmacenarAS = async () => {
+    //  const nombre = 'Dani'
+     // await AsyncStorage.setItem('prueba_as', nombre)
+     //console.log('almacenado')
+    //}
+  //}, [])
   
+
+    //useEffect(() => {
+   // const AlmacenarAS = async () => {
+    //  const nombre = 'Dani'
+     // await AsyncStorage.setItem('prueba_as', JSON.stringify(nombre))
+     //console.log('almacenado')
+    //}
+  //}, [])
+
+//si quieres almacenar string, tienes que usar JSON.srtingify y para que te vuelva
+//a salir como objeto tienes que poner JSON.parse
+
+  useEffect(() => {
+    const obtenerPresupuestoStorage = async () => {
+      try {
+        const presupuestoStorage = await AsyncStorage.getItem('planificador_presupuesto') ?? 0
+       
+        if(presupuestoStorage > 0) {
+          setPresupuesto(presupuestoStorage)
+          setIsValidPresupuesto(true)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    obtenerPresupuestoStorage()
+  }, [])
+
+
+
+  useEffect(() => { 
+    if(isValidPresupuesto) {
+      const guardarPresupuestoStorage = async () => {
+        try {
+          await AsyncStorage.setItem('planificador_presupuesto', presupuesto)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      guardarPresupuestoStorage()
+    }
+  }, [isValidPresupuesto])
+
+  useEffect (() => {
+    const obtenerGastosStorage = async () => {
+      try {
+        const gastosStorage = await AsyncStorage.getItem('planificador_gastos') 
+        setGastos( gastosStorage ? JSON.parse(gastosStorage): [])
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    obtenerGastosStorage()
+  },[])
+
+  useEffect(() => {
+    const guardarGastosStorage = async () => {
+      try {
+        await AsyncStorage.setItem('planificador_gastos', JSON.stringify(gastos))
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    guardarGastosStorage();
+  }, [gastos])
+
+
   const handleNuevoPresupuesto = (presupuesto) => {
     if (Number(presupuesto) > 0){
       setIsValidPresupuesto(true)

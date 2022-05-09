@@ -7,7 +7,38 @@ const NuevoPresupuesto = ({
     setPresupuesto,
     handleNuevoPresupuesto
 }) => {
-  
+    
+    //useEffect(() => {
+    //    const obtenerAS = async () => {
+     //       try {
+      //          const valor = await AsyncStorage.getItem('prueba_as')
+      //          console.log(valor)
+      //      } catch (error) {
+     //               console.log(error)
+      //      }
+      //  }
+    //}, [])
+    //para recibir y mostrar lo que este guardado en AsyncStorage
+
+
+//Si pones JSON.parse, lo reconoce como objeto y no como string.
+
+   
+    //useEffect(() => {
+    //    const obtenerAS = async () => {
+     //       try {
+      //          const valor = await AsyncStorage.getItem('prueba_as')
+      //          console.log ( JSON.parse(valor))
+      //      } catch (error) {
+     //               console.log(error)
+      //      }
+      //  }
+    //}, [])
+
+    //si quieres mostrar solo un objeto de la lista pones:
+    //console.log ( JSON.parse(valor /[aqui el numero de posicion en el array]))
+
+
   return (
       <View style={styles.contenedor}>
         <Text style={styles.label}>Definir Presupuesto</Text>
