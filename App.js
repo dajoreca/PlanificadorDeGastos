@@ -1,10 +1,8 @@
 
 import React, {useState, useEffect} from 'react';
 import {
-  SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
   View,
   Alert,
   Pressable,
@@ -168,6 +166,29 @@ const App = () => {
     //)
   }
 
+  const resetearApp = () => {
+    Alert.alert(
+      '¿Deseas resetear la app?',
+      'Esto eliminarará presupuestos y gastos',
+      [
+        {text: 'No', style: 'Cancel'},
+        {text: 'Si, Eliminar', onPress: async () => {
+          try {
+            await AsyncStorage.clear()
+
+            setIsValidPresupuesto(false)
+            setPresupuesto(0)
+            setGastos([])
+            
+          } catch (error) {
+            console.log(error)
+          }
+        }}
+      ]
+    )
+  }
+
+
   return (
       <View style={styles.contenedor}>
         <ScrollView>
@@ -178,6 +199,7 @@ const App = () => {
                 <ControlPresupuesto
                   presupuesto={presupuesto} 
                   gastos={gastos}
+                  resetearApp={resetearApp}
                 /> 
               ) : (
               
